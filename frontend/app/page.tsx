@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   MapPin,
   Minus,
+  Navigation,
   Pizza,
   Plus,
   Sandwich,
@@ -80,6 +81,11 @@ const money = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
+
+const googleMapsUrl = (address: string) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    `${address}, São Luís - MA`,
+  )}`;
 
 export default function Home() {
   const [active, setActive] = useState(0);
@@ -251,6 +257,18 @@ export default function Home() {
               <strong>{currentUnit.name}</strong>
               <span>{currentUnit.address}</span>
               <small>{currentUnit.offering}</small>
+              <motion.a
+                className="location-map-link"
+                href={googleMapsUrl(currentUnit.address)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Abrir o endereço da unidade ${currentUnit.name} no Google Maps`}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <Navigation size={15} aria-hidden="true" />
+                Ver no Google Maps
+              </motion.a>
             </div>
           </motion.div>
         </AnimatePresence>
