@@ -41,6 +41,38 @@ const pizzas = [
     price: 68,
     image: "/images/pizza-burrata.png",
   },
+  {
+    name: "Portuguesa Tradicional",
+    note: "Sabor clássico",
+    description:
+      "Mozzarella, presunto, ovos, cebola, pimentão, azeitonas e orégano.",
+    price: 50,
+    image: "/images/pizza-portuguesa.png",
+  },
+  {
+    name: "Portuguesa Dobrada",
+    note: "Pizza dobrada",
+    description:
+      "Massa artesanal dobrada com mozzarella, presunto, ovos, cebola, pimentão e azeitonas.",
+    price: 18,
+    image: "/images/pizza-portuguesa-dobrada.png",
+  },
+  {
+    name: "Calabresa Tradicional",
+    note: "Sabor clássico",
+    description:
+      "Mozzarella, calabresa dourada, cebola, azeitonas e orégano.",
+    price: 50,
+    image: "/images/pizza-calabresa.png",
+  },
+  {
+    name: "Calabresa Dobrada",
+    note: "Pizza dobrada",
+    description:
+      "Massa artesanal dobrada com mozzarella, calabresa dourada, cebola e orégano.",
+    price: 18,
+    image: "/images/pizza-calabresa-dobrada.png",
+  },
 ];
 
 const sizes = [
@@ -57,6 +89,7 @@ const units = [
       "Av. Colares Moreira, 400 — Bloco D1, Loja 5, Jardim Renascença",
     offering: "Exclusiva em pizza dobrada",
     image: "/images/pizza-dobrada.png",
+    splitImage: null,
     icon: Sandwich,
   },
   {
@@ -65,6 +98,7 @@ const units = [
     address: "Av. Daniel de La Touche, 10 — Cohama",
     offering: "Pizza tradicional e pizza dobrada",
     image: "/images/pizza-meio-a-meio.png",
+    splitImage: "/images/pizza-dobrada.png",
     icon: Pizza,
   },
   {
@@ -73,6 +107,7 @@ const units = [
     address: "Av. Jerônimo de Albuquerque, 2000, Loja 5 — Cohafuma",
     offering: "Pizza tradicional e pizza dobrada",
     image: "/images/pizza-meio-a-meio.png",
+    splitImage: "/images/pizza-dobrada.png",
     icon: Store,
   },
 ];
@@ -108,6 +143,7 @@ export default function Home() {
   const selectPizza = (index: number) => {
     setActive(index);
     setSize("M");
+    setQuantity(1);
     document.querySelector("#destaque")?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -193,7 +229,7 @@ export default function Home() {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentUnit.id}
-              className="hero-pizza"
+              className={currentUnit.splitImage ? "hero-pizza is-split" : "hero-pizza"}
               initial={{ opacity: 0, scale: 0.88, rotate: -6 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               exit={{ opacity: 0, scale: 0.9, rotate: 5 }}
@@ -201,11 +237,24 @@ export default function Home() {
             >
               <Image
                 src={currentUnit.image}
-                alt={`Opções de pizza da unidade ${currentUnit.name}`}
+                alt={currentUnit.splitImage
+                  ? `Metade pizza tradicional da unidade ${currentUnit.name}`
+                  : `Pizza dobrada da unidade ${currentUnit.name}`}
                 width={1254}
                 height={1254}
                 priority
+                className={currentUnit.splitImage ? "hero-pizza-base is-half" : "hero-pizza-base"}
               />
+              {currentUnit.splitImage && (
+                <Image
+                  src={currentUnit.splitImage}
+                  alt={`Metade pizza dobrada da unidade ${currentUnit.name}`}
+                  width={1254}
+                  height={1254}
+                  priority
+                  className="hero-pizza-folded"
+                />
+              )}
             </motion.div>
           </AnimatePresence>
 
@@ -350,9 +399,9 @@ export default function Home() {
         <div className="section-title-row">
           <div>
             <span className="eyebrow">Favoritas da casa</span>
-            <h2>Tre sapori.<br />Una passione.</h2>
+            <h2>Sapori senza confini.<br />Una passione.</h2>
           </div>
-          <p>Três receitas, uma mesma massa leve: 48 horas de fermentação para uma borda aerada e crocante.</p>
+          <p>Sete receitas, uma mesma massa leve: 48 horas de fermentação para uma borda aerada e crocante.</p>
         </div>
 
         <div className="pizza-grid">

@@ -102,7 +102,9 @@ a { color: inherit; text-decoration: none; }
 .primary-link { position: relative; z-index: 4; display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: var(--primary); color: #fff; font-weight: 700; box-shadow: 0 16px 30px rgba(201,41,47,.2); }
 .unit-wheel { position: relative; z-index: 3; width: clamp(380px, 47vw, 680px); aspect-ratio: 1; margin-top: 28px; filter: drop-shadow(0 34px 28px rgba(65,54,39,.2)); }
 .hero-pizza { position: absolute; inset: 0; overflow: hidden; border-radius: 50%; }
-.hero-pizza img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.hero-pizza img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.hero-pizza-base.is-half { clip-path: inset(0 50% 0 0); }
+.hero-pizza-folded { clip-path: inset(0 0 0 50%); }
 .pizza-sectors { position: absolute; z-index: 3; inset: 0; border-radius: 50%; overflow: hidden; }
 .pizza-sector { position: absolute; inset: 0; border: 0; background: transparent; cursor: pointer; transition: background .25s ease; }
 .pizza-sector:hover { background: rgba(255,255,255,.13); }
@@ -146,12 +148,12 @@ a { color: inherit; text-decoration: none; }
 .servings > div { display: flex; align-items: center; gap: 14px; margin-top: 15px; }
 .servings button { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #c4c2bc; background: transparent; display: grid; place-items: center; cursor: pointer; }
 .servings strong { min-width: 25px; text-align: center; }
-.product-center { height: 100%; min-width: 0; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; overflow: hidden; }
+.product-center { height: 100%; min-width: 0; position: relative; padding: 104px 28px 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
 .size-picker { display: flex; gap: 16px; position: absolute; z-index: 3; top: 36px; }
 .size-picker button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid #c8c6c0; color: #7c7e79; background: rgba(255,255,255,.35); cursor: pointer; transition: .3s ease; }
 .size-picker button.active { border-color: #fff; background: #fff; color: #171a17; font-weight: 800; box-shadow: 0 12px 25px rgba(50,46,39,.12); transform: scale(1.08); }
-.featured-image { width: min(580px, 49vw); margin-bottom: -18%; filter: drop-shadow(0 28px 24px rgba(70,57,39,.18)); }
-.featured-image img { display: block; width: 100%; height: auto; border-radius: 50%; }
+.featured-image { width: min(440px, 100%); aspect-ratio: 1; filter: drop-shadow(0 24px 22px rgba(70,57,39,.16)); }
+.featured-image img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 22px; }
 .product-order { align-items: flex-start; }
 .product-order > strong { margin: 12px 0 26px; font: 600 2rem Georgia, serif; }
 .product-order button { border: 0; border-radius: 999px; padding: 15px 20px; display: flex; align-items: center; gap: 10px; color: #fff; background: var(--primary); font-weight: 700; box-shadow: 0 14px 26px rgba(201,41,47,.22); cursor: pointer; }
@@ -198,8 +200,8 @@ footer a { color: #fff; }
   .unit-wheel { width: min(560px, 88vw); }
   .ingredient { display: none; }
   .product-stage { grid-template-columns: 1fr 1fr; }
-  .product-center { grid-column: 1 / -1; grid-row: 1; min-height: 530px; }
-  .featured-image { width: min(560px, 76vw); }
+  .product-center { grid-column: 1 / -1; grid-row: 1; min-height: 530px; padding: 96px 28px 28px; }
+  .featured-image { width: min(410px, 72vw); }
   .product-info, .product-order { padding: 34px; min-height: 250px; }
   .pizza-grid { grid-template-columns: 1fr; max-width: 570px; gap: 28px; }
   .section-title-row { align-items: start; flex-direction: column; }
@@ -222,9 +224,9 @@ footer a { color: #fff; }
   .unit-location { margin-top: 13px; padding: 14px 16px; }
   .featured, .menu-section { padding: 84px 18px; }
   .product-stage { grid-template-columns: 1fr; border-radius: 22px; }
-  .product-center { min-height: 410px; }
+  .product-center { min-height: 410px; padding: 82px 18px 22px; }
   .size-picker { top: 24px; }
-  .featured-image { width: 116vw; max-width: 500px; margin-bottom: -28%; }
+  .featured-image { width: min(300px, 78vw); }
   .product-info, .product-order { min-height: auto; padding: 34px 26px; }
   .product-info { gap: 34px; }
   .product-order { border-top: 1px solid #d7d4ce; }
