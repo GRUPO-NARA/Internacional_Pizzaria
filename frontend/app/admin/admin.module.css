@@ -1,0 +1,47 @@
+.page { min-height: 100vh; padding: 32px; background: #f2f0eb; color: #171a17; }
+.shell { width: min(1180px, 100%); margin: auto; }
+.login { width: min(430px, calc(100% - 32px)); margin: 9vh auto; padding: 34px; border: 1px solid #d7d2ca; border-radius: 24px; background: #fff; box-shadow: 0 28px 70px rgba(32,31,28,.12); }
+.login h1, .header h1 { margin: 8px 0; font: 500 2.4rem/1 Georgia, serif; }
+.login p, .header p, .muted { color: #6a6d67; line-height: 1.55; }
+.field { display: grid; gap: 7px; margin-top: 15px; color: #555852; font-size: .78rem; font-weight: 800; }
+.field input { min-height: 46px; border: 1px solid #d3d0c9; border-radius: 12px; padding: 0 13px; font: inherit; font-weight: 400; }
+.primary { width: 100%; min-height: 48px; margin-top: 20px; border: 0; border-radius: 999px; background: #c9292f; color: #fff; font-weight: 800; cursor: pointer; }
+.warning { margin-top: 18px; padding: 12px; border-radius: 12px; background: #fff3dd; color: #765214; font-size: .76rem; line-height: 1.5; }
+.error { color: #b51f25; font-size: .8rem; }
+.header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 24px; }
+.headerActions { display: flex; gap: 10px; }
+.headerActions button, .headerActions a { min-height: 40px; padding: 0 15px; border: 1px solid #cbc7bf; border-radius: 999px; display: inline-flex; align-items: center; background: #fff; font-weight: 700; cursor: pointer; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.tabs button { padding: 10px 15px; border: 1px solid #d2cec6; border-radius: 999px; background: #fff; cursor: pointer; }
+.tabs button.active { border-color: #0d7c4b; background: #0d7c4b; color: #fff; }
+.panel { padding: 24px; border: 1px solid #d8d3ca; border-radius: 20px; background: #fff; }
+.panel h2 { margin: 0 0 6px; font: 500 1.8rem Georgia, serif; }
+.settingsRow { display: flex; flex-wrap: wrap; gap: 14px; align-items: end; padding: 18px 0; border-bottom: 1px solid #e2ded6; }
+.unitCard { flex: 1 1 220px; padding: 14px; border: 1px solid #dfdbd3; border-radius: 14px; }
+.unitCard label { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-weight: 800; }
+.catalog { display: grid; gap: 10px; margin-top: 18px; }
+.product { display: grid; grid-template-columns: minmax(180px, 1.3fr) 120px repeat(3, minmax(95px, .55fr)); gap: 12px; align-items: center; padding: 13px; border: 1px solid #e0dcd4; border-radius: 13px; }
+.product small { display: block; margin-top: 3px; color: #7b7e78; text-transform: capitalize; }
+.product input[type="number"] { width: 100%; min-height: 38px; border: 1px solid #d3d0c9; border-radius: 9px; padding: 0 9px; }
+.toggle { display: flex; align-items: center; gap: 7px; font-size: .76rem; }
+.orderList { display: grid; gap: 12px; margin-top: 18px; }
+.order { padding: 16px; border: 1px solid #dfdbd3; border-radius: 14px; }
+.orderHead { display: flex; justify-content: space-between; gap: 20px; }
+.orderActions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.orderActions button { min-height: 38px; padding: 0 11px; border: 1px solid #cbc7bf; border-radius: 9px; background: #fff; cursor: pointer; }
+.orderMeta { color: #737670; font-size: .78rem; }
+.order select { min-height: 38px; border: 1px solid #cbc7bf; border-radius: 9px; padding: 0 10px; background: #fff; }
+.order pre { max-height: 220px; overflow: auto; padding: 12px; border-radius: 10px; background: #f4f2ee; white-space: pre-wrap; font: .75rem/1.5 monospace; }
+.empty { padding: 40px; text-align: center; color: #777a74; }
+.danger { border-color: #c9292f !important; color: #b51f25; }
+.secondaryButton { min-height: 40px; margin-top: 16px; padding: 0 15px; border: 1px solid #cbc7bf; border-radius: 999px; background: #fff; font-weight: 700; cursor: pointer; }
+.securityGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 720px; }
+.securityGrid .primary { grid-column: 1 / -1; width: auto; padding: 0 24px; justify-self: start; }
+@media (max-width: 760px) {
+  .page { padding: 20px 14px; }
+  .header { flex-direction: column; }
+  .product { grid-template-columns: 1fr 100px; }
+  .product .toggle { grid-column: span 1; }
+  .securityGrid { grid-template-columns: 1fr; }
+  .securityGrid .primary { grid-column: auto; }
+}
