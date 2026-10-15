@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import {
+  ChevronLeft,
+  ChevronRight,
   MapPin,
   Minus,
   Navigation,
@@ -14,7 +16,7 @@ import {
   Store,
   X,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 const pizzas = [
   {
@@ -73,6 +75,38 @@ const pizzas = [
     price: 18,
     image: "/images/pizza-calabresa-dobrada.png",
   },
+  {
+    name: "Frango com Catupiry",
+    note: "Sabor tradicional",
+    description:
+      "Mozzarella, frango temperado e desfiado, Catupiry cremoso e orégano.",
+    price: 50,
+    image: "/images/pizza-frango-catupiry.png",
+  },
+  {
+    name: "Frango com Catupiry Dobrada",
+    note: "Pizza dobrada",
+    description:
+      "Massa artesanal dobrada com frango temperado, mozzarella e Catupiry cremoso.",
+    price: 18,
+    image: "/images/pizza-frango-catupiry-dobrada.png",
+  },
+  {
+    name: "Carne Seca com Queijo",
+    note: "Sabor tradicional",
+    description:
+      "Mozzarella, carne seca desfiada, cebola e orégano sobre molho da casa.",
+    price: 50,
+    image: "/images/pizza-carne-seca-queijo.png",
+  },
+  {
+    name: "Carne Seca com Queijo Dobrada",
+    note: "Pizza dobrada",
+    description:
+      "Massa artesanal dobrada com carne seca desfiada, mozzarella e cebola.",
+    price: 18,
+    image: "/images/pizza-carne-seca-queijo-dobrada.png",
+  },
 ];
 
 const sizes = [
@@ -129,6 +163,7 @@ export default function Home() {
   const [cart, setCart] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState(1);
+  const menuCarouselRef = useRef<HTMLDivElement>(null);
 
   const pizza = pizzas[active];
   const currentUnit = units[selectedUnit];
@@ -147,15 +182,25 @@ export default function Home() {
     document.querySelector("#destaque")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollMenu = (direction: -1 | 1) => {
+    const carousel = menuCarouselRef.current;
+    if (!carousel) return;
+
+    carousel.scrollBy({
+      left: direction * Math.min(carousel.clientWidth * 0.82, 430),
+      behavior: "smooth",
+    });
+  };
+
   return (
     <main>
       <header className="site-header">
         <a href="#inicio" className="brand" aria-label="Internacional Pizzaria">
           <Image
-            src="/images/logo-internacional.jpg"
+            src="/images/logo-internacional-transparent.png"
             alt="Internacional Pizzaria & Trattoria"
-            width={96}
-            height={96}
+            width={140}
+            height={140}
             priority
           />
         </a>
@@ -401,32 +446,63 @@ export default function Home() {
             <span className="eyebrow">Favoritas da casa</span>
             <h2>Sapori senza confini.<br />Una passione.</h2>
           </div>
-          <p>Sete receitas, uma mesma massa leve: 48 horas de fermentação para uma borda aerada e crocante.</p>
+          <p>Onze receitas, uma mesma massa leve: 48 horas de fermentação para uma borda aerada e crocante.</p>
         </div>
 
-        <div className="pizza-grid">
-          {pizzas.map((item, index) => (
-            <motion.article
-              key={item.name}
-              className="pizza-card"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ delay: index * 0.08 }}
-              onClick={() => selectPizza(index)}
-            >
-              <div className="card-image">
-                <Image src={item.image} alt={item.name} width={1254} height={1254} />
-              </div>
-              <span>{item.note}</span>
-              <h3>{item.name}</h3>
-              <div className="card-bottom">
-                <p>{item.description}</p>
-                <strong>{money.format(item.price)}</strong>
-              </div>
-              <button aria-label={`Escolher ${item.name}`}>Escolher</button>
-            </motion.article>
-          ))}
+        <div className="pizza-carousel-shell">
+          <motion.button
+            className="carousel-control carousel-previous"
+            type="button"
+            aria-label="Ver sabores anteriores"
+            aria-controls="pizza-carousel"
+            onClick={() => scrollMenu(-1)}
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.94 }}
+          >
+            <ChevronLeft size={24} aria-hidden="true" />
+          </motion.button>
+
+          <div
+            className="pizza-carousel"
+            id="pizza-carousel"
+            ref={menuCarouselRef}
+            aria-label="Carrossel de pizzas favoritas da casa"
+          >
+            {pizzas.map((item, index) => (
+              <motion.article
+                key={item.name}
+                className="pizza-card"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.42 }}
+                onClick={() => selectPizza(index)}
+              >
+                <div className="card-image">
+                  <Image src={item.image} alt={item.name} width={1254} height={1254} />
+                </div>
+                <span>{item.note}</span>
+                <h3>{item.name}</h3>
+                <div className="card-bottom">
+                  <p>{item.description}</p>
+                  <strong>{money.format(item.price)}</strong>
+                </div>
+                <button type="button" aria-label={`Escolher ${item.name}`}>Escolher</button>
+              </motion.article>
+            ))}
+          </div>
+
+          <motion.button
+            className="carousel-control carousel-next"
+            type="button"
+            aria-label="Ver próximos sabores"
+            aria-controls="pizza-carousel"
+            onClick={() => scrollMenu(1)}
+            whileHover={{ scale: 1.07 }}
+            whileTap={{ scale: 0.94 }}
+          >
+            <ChevronRight size={24} aria-hidden="true" />
+          </motion.button>
         </div>
       </section>
 
@@ -451,7 +527,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <Image src="/images/logo-internacional.jpg" alt="Internacional Pizzaria & Trattoria" width={110} height={110} />
+        <Image src="/images/logo-internacional-transparent.png" alt="Internacional Pizzaria & Trattoria" width={150} height={150} />
         <p>Feita à mão. Servida com afeto.</p>
         <div>
           <a href="#inicio">Voltar ao topo</a>
